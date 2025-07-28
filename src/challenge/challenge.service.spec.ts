@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { ChallengeService } from "./challenge.service";
 import { getRepositoryToken } from "@nestjs/typeorm";
-import { Challenge } from "./challenge.entity";
+import { Challenge } from "./entities/challenge.entity";
 
 const mockChallengeRepository = () => ({
   create: jest.fn(),
