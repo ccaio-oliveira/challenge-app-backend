@@ -7,25 +7,28 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-    constructor(
-        @InjectRepository(User)
-        private userRepository: Repository<User>,
-    ) {}
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
-    async create(createUserDto: CreateUserDto): Promise<User> {
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(createUserDto.password, saltRounds);
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(
+      createUserDto.password,
+      saltRounds,
+    );
 
-        const user = this.userRepository.create({
-            ...createUserDto,
-            password: hashedPassword,
-        });
+    const user = this.userRepository.create({
+      ...createUserDto,
+      password: hashedPassword,
+    });
 
-        return this.userRepository.save(user);
-    }
+    return this.userRepository.save(user);
+  }
 
-    async findByEmail(email: string): Promise<User | undefined> {
-        const user = await this.userRepository.findOne({ where: { email } });
-        return user || undefined;
-    }
+  async findByEmail(email: string): Promise<User | undefined> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    return user || undefined;
+  }
 }

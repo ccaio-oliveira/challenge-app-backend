@@ -1,24 +1,24 @@
-import { IsBoolean, IsDateString, IsNumber, IsOptional } from "class-validator";
+import { IsBoolean, IsDateString, IsNumber, IsOptional } from 'class-validator';
 
 export class CompleteTaskDto {
-    @IsNumber()
-    id: number;
-    
-    @IsNumber()
-    task: number;
+  @IsNumber()
+  id: number;
 
-    @IsNumber()
-    userId: number;
+  @IsNumber()
+  task: number;
 
-    @IsDateString()
-    date: Date;
+  @IsNumber()
+  userId: number;
 
-    @IsBoolean()
-    completed: boolean;
+  @IsDateString()
+  date: Date;
 
-    @IsOptional()
-    photoUrl?: string;
+  @IsBoolean()
+  completed: boolean;
 
-    @IsOptional()
-    points?: number;
+  @IsOptional()
+  photoUrl?: string;
+
+  @IsOptional()
+  points?: number;
 }

@@ -1,9 +1,9 @@
-import { IsDateString, IsNumber } from "class-validator";
+import { IsNumber } from 'class-validator';
 
 export class CreateParticipantDto {
-    @IsNumber()
-    challenge: number;
+  @IsNumber()
+  challenge: number;
 
-    @IsNumber()
-    userId: number;
+  @IsNumber()
+  userId: number;
 }

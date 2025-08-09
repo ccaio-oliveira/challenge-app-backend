@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-typescript-next",
+    "oderwat.indent-rainbow",
+    "streetsidesoftware.code-spell-checker",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "formulahendry.auto-rename-tag",
+    "ms-vscode.test-adapter-converter"
+  ]
+}

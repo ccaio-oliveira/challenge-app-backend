@@ -21,7 +21,9 @@ describe('AuthController', () => {
     }).compile();
 
     controller = module.get<AuthController>(AuthController);
-    authService = module.get<AuthService>(AuthService) as jest.Mocked<AuthService>;
+    authService = module.get<AuthService>(
+      AuthService,
+    ) as jest.Mocked<AuthService>;
   });
 
   it('should be defined', () => {
@@ -33,32 +35,54 @@ describe('AuthController', () => {
       const loginDto = { email: 'test@example.com', password: 'password123' };
       const mockResult = {
         access_token: 'jwt.token.here',
-        user: { id: 1, email: 'test@example.com', name: 'Test User', isAdmin: false },
+        user: {
+          id: 1,
+          email: 'test@example.com',
+          name: 'Test User',
+          isAdmin: false,
+        },
       };
 
       authService.login.mockResolvedValue(mockResult);
 
       const result = await controller.login(loginDto);
 
-      expect(authService.login).toHaveBeenCalledWith(loginDto.email, loginDto.password);
+      expect(authService.login).toHaveBeenCalledWith(
+        loginDto.email,
+        loginDto.password,
+      );
       expect(result).toEqual(mockResult);
     });
 
     it('should throw UnauthorizedException when login fails', async () => {
-      const loginDto = { email: 'wrong@example.com', password: 'wrongpassword' };
-      
-      authService.login.mockRejectedValue(new UnauthorizedException('Invalid credentials'));
+      const loginDto = {
+        email: 'wrong@example.com',
+        password: 'wrongpassword',
+      };
 
-      await expect(controller.login(loginDto)).rejects.toThrow(UnauthorizedException);
-      expect(authService.login).toHaveBeenCalledWith(loginDto.email, loginDto.password);
+      authService.login.mockRejectedValue(
+        new UnauthorizedException('Invalid credentials'),
+      );
+
+      await expect(controller.login(loginDto)).rejects.toThrow(
+        UnauthorizedException,
+      );
+      expect(authService.login).toHaveBeenCalledWith(
+        loginDto.email,
+        loginDto.password,
+      );
     });
 
     it('should handle empty credentials', async () => {
       const loginDto = { email: '', password: '' };
-      
-      authService.login.mockRejectedValue(new UnauthorizedException('Invalid credentials'));
 
-      await expect(controller.login(loginDto)).rejects.toThrow(UnauthorizedException);
+      authService.login.mockRejectedValue(
+        new UnauthorizedException('Invalid credentials'),
+      );
+
+      await expect(controller.login(loginDto)).rejects.toThrow(
+        UnauthorizedException,
+      );
       expect(authService.login).toHaveBeenCalledWith('', '');
     });
 
@@ -74,7 +98,10 @@ describe('AuthController', () => {
       await controller.login(loginDto);
 
       expect(authService.login).toHaveBeenCalledTimes(1);
-      expect(authService.login).toHaveBeenCalledWith('user@test.com', 'mypassword');
+      expect(authService.login).toHaveBeenCalledWith(
+        'user@test.com',
+        'mypassword',
+      );
     });
   });
 });

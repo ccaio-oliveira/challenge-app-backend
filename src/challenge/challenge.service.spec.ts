@@ -1,7 +1,7 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { ChallengeService } from "./challenge.service";
-import { getRepositoryToken } from "@nestjs/typeorm";
-import { Challenge } from "./entities/challenge.entity";
+import { Test, TestingModule } from '@nestjs/testing';
+import { ChallengeService } from './challenge.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Challenge } from './entities/challenge.entity';
 
 const mockChallengeRepository = () => ({
   create: jest.fn(),
@@ -41,11 +41,11 @@ describe('ChallengeService', () => {
 
   it('should return all challenges', async () => {
     const challenges = [
-      { id: 1, title: 'A', description: 'Desc', createdAt: new Date() }
+      { id: 1, title: 'A', description: 'Desc', createdAt: new Date() },
     ];
     challengeRepository.find.mockResolvedValue(challenges);
 
     const result = await service.findAll();
     expect(result).toEqual(challenges);
-  })
-})
+  });
+});

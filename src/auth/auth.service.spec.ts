@@ -29,29 +29,51 @@ describe('AuthService', () => {
   });
 
   it('should validate user and return user data if credentials are correct', async () => {
-    const user = { id: 1, email: 'test@gmail.com', password: 'hashed', name: 'Test', isAdmin: false };
+    const user = {
+      id: 1,
+      email: 'test@gmail.com',
+      password: 'hashed',
+      name: 'Test',
+      isAdmin: false,
+    };
     (userService.findByEmail as jest.Mock).mockResolvedValue(user);
     jest.spyOn(bcrypt, 'compare').mockResolvedValue(true as never);
 
     const result = await service.validateUser(user.email, 'plaintext');
 
-    expect(result).toMatchObject({ id: 1, email: 'test@gmail.com', name: 'Test', isAdmin: false });
+    expect(result).toMatchObject({
+      id: 1,
+      email: 'test@gmail.com',
+      name: 'Test',
+      isAdmin: false,
+    });
   });
 
   it('should throw if user not found', async () => {
     (userService.findByEmail as jest.Mock).mockResolvedValue(undefined);
-    await expect(service.validateUser('wrong@email.com', 'pw')).rejects.toThrow();
+    await expect(
+      service.validateUser('wrong@email.com', 'pw'),
+    ).rejects.toThrow();
   });
 
   it('should throw if password is invalid', async () => {
-    (userService.findByEmail as jest.Mock).mockResolvedValue({ email: 'a', password: 'hash' });
+    (userService.findByEmail as jest.Mock).mockResolvedValue({
+      email: 'a',
+      password: 'hash',
+    });
     jest.spyOn(bcrypt, 'compare').mockResolvedValue(false as never);
 
     await expect(service.validateUser('a', 'pw')).rejects.toThrow();
   });
 
   it('should return JWT and user on login()', async () => {
-    const user = { id: 1, email: 'a', password: 'hash', name: 'T', isAdmin: false };
+    const user = {
+      id: 1,
+      email: 'a',
+      password: 'hash',
+      name: 'T',
+      isAdmin: false,
+    };
     (service as any).validateUser = jest.fn().mockResolvedValue(user);
     (jwtService.sign as jest.Mock).mockReturnValue('jwt.token.here');
 

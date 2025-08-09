@@ -6,27 +6,27 @@ import { AuthModule } from './auth/auth.module';
 import { ChallengeModule } from './challenge/challenge.module';
 
 @Module({
-    imports: [
-        ConfigModule.forRoot({
-            isGlobal: true,
-        }),
-        TypeOrmModule.forRootAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: (config: ConfigService) => ({
-                type: 'postgres',
-                host: config.get('DB_HOST'),
-                port: parseInt(config.get('DB_PORT') ?? '5432', 10),
-                username: config.get('DB_USERNAME'),
-                password: config.get('DB_PASSWORD'),
-                database: config.get('DB_DATABASE'),
-                autoLoadEntities: true,
-                synchronize: true,
-            })
-        }),
-        UserModule,
-        AuthModule,
-        ChallengeModule,
-    ],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        host: config.get('DB_HOST'),
+        port: parseInt(config.get('DB_PORT') ?? '5432', 10),
+        username: config.get('DB_USERNAME'),
+        password: config.get('DB_PASSWORD'),
+        database: config.get('DB_DATABASE'),
+        autoLoadEntities: true,
+        synchronize: true,
+      }),
+    }),
+    UserModule,
+    AuthModule,
+    ChallengeModule,
+  ],
 })
 export class AppModule {}

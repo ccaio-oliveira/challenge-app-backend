@@ -1,26 +1,28 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ChallengeTask } from "./challenge-task.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { ChallengeTask } from './challenge-task.entity';
 
 @Entity()
 export class ChallengeTaskCompletion {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ManyToOne(() => ChallengeTask, task => task.completions, { onDelete: 'CASCADE' })
-    task: ChallengeTask;
+  @ManyToOne(() => ChallengeTask, task => task.completions, {
+    onDelete: 'CASCADE',
+  })
+  task: ChallengeTask;
 
-    @Column()
-    userId: number;
+  @Column()
+  userId: number;
 
-    @Column({ type: 'date' })
-    date: Date;
+  @Column({ type: 'date' })
+  date: Date;
 
-    @Column({ default: false })
-    completed: boolean;
+  @Column({ default: false })
+  completed: boolean;
 
-    @Column({ nullable: true })
-    photoUrl: string;
+  @Column({ nullable: true })
+  photoUrl: string;
 
-    @Column({ nullable: true, type: 'int' })
-    points: number;
+  @Column({ nullable: true, type: 'int' })
+  points: number;
 }

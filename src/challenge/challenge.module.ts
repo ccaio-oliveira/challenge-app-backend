@@ -15,10 +15,10 @@ import { ChallengeParticipant } from './entities/challenge-participant.entity';
       Challenge,
       ChallengeTask,
       ChallengeTaskCompletion,
-      ChallengeParticipant
+      ChallengeParticipant,
     ]),
     AuthModule,
-    PassportModule
+    PassportModule,
   ],
   providers: [ChallengeService],
   controllers: [ChallengeController],
